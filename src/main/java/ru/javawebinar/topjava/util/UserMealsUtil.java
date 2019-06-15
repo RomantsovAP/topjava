@@ -30,13 +30,14 @@ public class UserMealsUtil {
             totalCaloriesPerDay.merge(userMeal.getDateTime().toLocalDate(), userMeal.getCalories(), (k, v) -> k + v);
         }
         for (UserMeal userMeal : mealList) {
-
+            if (!TimeUtil.isBetween(userMeal.getDateTime().toLocalTime(), startTime, endTime)) {
+                continue;
+            }
             if (totalCaloriesPerDay.get(userMeal.getDateTime().toLocalDate()) > caloriesPerDay) {
                 result.add(new UserMealWithExceed(userMeal, true));
             } else {
                 result.add(new UserMealWithExceed(userMeal, false));
             }
-
         }
         return result;
     }
