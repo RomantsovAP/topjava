@@ -3,6 +3,10 @@
 <html>
 <head>
     <title>Meals</title>
+    <style>
+        .normal {color: green;}
+        .exceeded {color: red;}
+    </style>
 </head>
 <body>
 <h3><a href="index.html">Home</a></h3>
@@ -18,7 +22,8 @@
     </thead>
     <tbody>
     <c:forEach items="${mealsTo}" var="mealTo">
-        <tr>
+        <jsp:useBean id="mealTo" scope="page" type="ru.javawebinar.topjava.model.MealTo" />
+        <tr class = "${mealTo.excess ? 'exceeded' : 'normal'}">
             <td><c:out value="${mealTo.description}"/></td>
             <td><c:out value="${mealTo.calories}"/></td>
             <td><c:out value="${mealTo.dateTime.format(formatter)}"/></td>
